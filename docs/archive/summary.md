@@ -54,4 +54,4 @@ rules 페이지에 "Scalability and feasibility"가 추가로 언급됨. 심사�
 
 ## 8. 최종 결정
 * 빌드: **KillScore** (PR 단위 뮤테이션 테스팅 릴리스 게이트 SaaS). 헤지: SilentSLO, 22:30 KST 고/노고.
-* 근거와 후보 29건 재채점은 [ideas/00_FINAL_DECISION.md](ideas/00_FINAL_DECISION.md), 제출 폼·시간표는 [research/devpost_2120/07_submission_checklist.md](research/devpost_2120/07_submission_checklist.md).
+* 근거와 후보 29건 재채점은 [../FINAL_DECISION.md](../FINAL_DECISION.md), 제출 폼·시간표는 [research/devpost_2120/07_submission_checklist.md](research/devpost_2120/07_submission_checklist.md).

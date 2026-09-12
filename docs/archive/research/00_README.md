@@ -74,4 +74,4 @@
 | [devpost_2120/06_project_ideas.md](devpost_2120/06_project_ideas.md) | 인증키 없이 응답 확인된 외부 API 5개(GitHub·npm·PyPI·endoflife·OSV), 아이디어 7선 |
 | [devpost_2120/07_submission_checklist.md](devpost_2120/07_submission_checklist.md) | Devpost 제출 폼 필드별 준비물, 21:30~10:00 KST 시간표, 빈 제출물 선생성 보험 |
 
-최종 빌드 결정은 [../ideas/00_FINAL_DECISION.md](../ideas/00_FINAL_DECISION.md) 참조.
+최종 빌드 결정은 [../../FINAL_DECISION.md](../../FINAL_DECISION.md) 참조.
