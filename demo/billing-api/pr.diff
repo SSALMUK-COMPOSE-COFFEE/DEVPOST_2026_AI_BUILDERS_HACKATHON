@@ -1,0 +1,24 @@
+diff --git a/billing/pricing.py b/billing/pricing.py
+--- a/billing/pricing.py
++++ b/billing/pricing.py
+@@ -24,9 +24,9 @@ def tier_for_usage(units: int) -> Tier:
+     if units < 0:
+         raise ValueError("units must be non-negative")
+     for tier in TIERS[:-1]:
+-        if units < tier.max_units:
++        if units <= tier.max_units:
+             return tier
+     return TIERS[-1]
+@@ -35,7 +35,7 @@ def apply_discount(subtotal: Decimal, percent: int, coupon_active: bool) -> Deci
+     if not coupon_active or percent <= 0:
+         return subtotal
+-    if percent >= 100:
++    if percent > 100:
+         raise ValueError("percent out of range")
+     discounted = subtotal * (Decimal(100 - percent) / Decimal(100))
+     return round_cents(discounted)
+@@ -44,7 +44,7 @@ def calculate_invoice(units: int, percent_off: int = 0, coupon_active: bool = Fa
+     tier = tier_for_usage(units)
+-    billable = max(units - TIERS[0].max_units, 0)
++    billable = max(units - TIERS[0].max_units, 0) if tier.name != "free" else 0
+     subtotal = round_cents(tier.unit_price * billable)
