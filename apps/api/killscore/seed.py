@@ -26,10 +26,13 @@ def seed() -> None:
                 continue
             repo = db.scalar(select(Repo).where(Repo.slug == slug))
             if repo is None:
-                repo = Repo(org_id=org.id, slug=slug, path=str(path.resolve()), description=desc)
+                repo = Repo(org_id=org.id, slug=slug, path=slug, description=desc)
                 db.add(repo)
                 db.flush()
                 db.add(GatePolicy(repo_id=repo.id, min_score=0.6, critical_paths=["billing/", "auth/"]))
+            else:
+                repo.path = slug
+                repo.description = desc
         db.commit()
 
 

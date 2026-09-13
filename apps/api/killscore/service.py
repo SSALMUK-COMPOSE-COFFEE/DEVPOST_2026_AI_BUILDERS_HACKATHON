@@ -21,7 +21,7 @@ INLINE_TEST_HEADER = "from mod import *\n\n"
 
 
 def repo_path(repo: Repo) -> Path:
-    return Path(repo.path)
+    return (Path(settings.demo_root) / repo.slug).resolve()
 
 
 def create_inline_repo(run_id: str, source: str, tests: str) -> Path:
