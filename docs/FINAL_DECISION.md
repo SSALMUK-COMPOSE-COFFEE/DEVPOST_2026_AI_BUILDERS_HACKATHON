@@ -341,7 +341,7 @@ Stripe Pricing Table은 **노코드**(대시보드에서 생성 → `<script>` +
 
 | 시각 | 작업 | **그 시점에 화면에 보이는 것** |
 | --- | --- | --- |
-| **17:30–18:00** (H0) | 레포 생성 + `HACKATHON.md`(재사용 범위 명시) + FastAPI + Postgres(Neon) + Next.js/shadcn 스캐폴드. **배포 먼저** (`killscore.hajin.xyz` / `api.killscore.hajin.xyz`). `/healthz` + 구조화 로그 + `llm_call` 테이블 | 브라우저에 `{"status":"ok","version":"0.1.0","db":"up"}` |
+| **17:30–18:00** (H0) | 레포 생성 + `HACKATHON.md`(재사용 범위 명시) + FastAPI + Postgres(Neon) + Next.js/shadcn 스캐폴드. **배포 먼저** (`killscore.hajin.xyz` / `killscore-api.hajin.xyz`). `/healthz` + 구조화 로그 + `llm_call` 테이블 | 브라우저에 `{"status":"ok","version":"0.1.0","db":"up"}` |
 | **18:00–19:00** (H1) | **Mutation Engine v1** — AST 연산자 5종. `python -m killscore.mutate fixtures/billing.py` | 터미널에 뮤턴트 30+개의 diff 목록 |
 | **19:00–20:00** (H2) | **Runner** — 워크트리 복사, pytest 서브프로세스, 타임아웃, 8워커 병렬. `python -m killscore.run demo/billing-api` | 터미널에 `mutation score 31% (14/45 killed, 2 timeout)` ← **이 순간 제품이 존재한다** |
 | **20:00–20:45** (H3) | diff 스코핑(git diff → FunctionDef) + 연산자 4종 추가 + Postgres 스키마 + 영속화 | `curl /v1/runs/{id}` 전체 JSON |
