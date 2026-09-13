@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from killscore import __version__
 from killscore.db import db_alive, init_db
 from killscore.logging import configure_logging, get_logger
+from killscore.routes_runs import router as runs_router
 from killscore.settings import settings
 
 log = get_logger("killscore.main")
@@ -26,6 +27,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+app.include_router(runs_router)
 
 
 @app.get("/healthz")
