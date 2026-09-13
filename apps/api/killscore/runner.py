@@ -148,7 +148,10 @@ def run(
         for m in generate((repo / target).read_text(), funcs):
             mid = f"{target}::{m.id}"
             jobs.append((target, Mutant(mid, m.function, m.operator, m.line, m.col, m.description, m.source)))
-    emit("mutants", {"total": len(jobs)})
+    emit("mutants", {"total": len(jobs), "items": [
+        {"id": m.id, "file": str(t), "function": m.function, "operator": m.operator, "line": m.line, "description": m.description, "source": m.source}
+        for t, m in jobs
+    ]})
 
     result = RunResult(str(repo), [str(t) for t in targets], len(jobs), 0, 0, 0, 0, cov, passed, mutants=[m for _, m in jobs])
     with ThreadPoolExecutor(max_workers=workers) as pool:
@@ -157,6 +160,6 @@ def run(
             ex = fut.result()
             result.executions.append(ex)
             setattr(result, ex.verdict, getattr(result, ex.verdict) + 1)
-            emit("mutant", {"id": ex.mutant_id, "verdict": ex.verdict, "duration_ms": ex.duration_ms})
+            emit("mutant", {"id": ex.mutant_id, "verdict": ex.verdict, "duration_ms": ex.duration_ms, "exit_code": ex.exit_code, "stdout_tail": ex.stdout_tail})
     emit("done", {"score": result.score, "killed": result.killed, "survived": result.survived, "timeout": result.timeout, "error": result.error})
     return result

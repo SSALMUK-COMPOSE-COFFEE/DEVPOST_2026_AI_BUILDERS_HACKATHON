@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     runner_workers: int = 8
     mutant_timeout_sec: int = 8
     demo_root: str = "demo"
+    runs_root: str = "/tmp/killscore-runs"
     log_json: bool = True
 
 
