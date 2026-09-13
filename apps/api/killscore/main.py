@@ -7,6 +7,7 @@ from killscore import __version__
 from killscore.db import db_alive, init_db
 from killscore.logging import configure_logging, get_logger
 from killscore.routes_runs import router as runs_router
+from killscore.seed import seed
 from killscore.settings import settings
 
 log = get_logger("killscore.main")
@@ -15,7 +16,10 @@ log = get_logger("killscore.main")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     configure_logging()
-    log.info("startup", version=__version__, workers=settings.runner_workers, db=init_db())
+    ok = init_db()
+    if ok:
+        seed()
+    log.info("startup", version=__version__, workers=settings.runner_workers, db=ok)
     yield
     log.info("shutdown")
 

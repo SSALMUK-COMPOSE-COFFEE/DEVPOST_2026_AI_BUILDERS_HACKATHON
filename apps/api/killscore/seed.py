@@ -14,7 +14,6 @@ PRESETS = [
 
 
 def seed() -> None:
-    init_db()
     with SessionLocal() as db:
         org = db.scalar(select(Org).where(Org.name == "demo"))
         if org is None:
@@ -35,4 +34,5 @@ def seed() -> None:
 
 
 if __name__ == "__main__":
+    init_db()
     seed()
