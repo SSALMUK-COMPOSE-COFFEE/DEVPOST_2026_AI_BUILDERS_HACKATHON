@@ -34,7 +34,7 @@ export default function PricingPage() {
           ))}
         </div>
       )}
-      <p className="mt-6 text-xs text-zinc-400">Stripe test mode. No card is charged.</p>
+      <p className="mt-6 text-xs text-zinc-400">Billing integration is not live yet. Nothing is charged.</p>
     </main>
   );
 }
