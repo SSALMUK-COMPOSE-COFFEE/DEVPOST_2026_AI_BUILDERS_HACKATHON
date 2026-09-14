@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from killscore import __version__
 from killscore.db import db_alive, init_db
 from killscore.logging import configure_logging, get_logger
+from killscore.routes_proposals import router as proposals_router
 from killscore.routes_runs import router as runs_router
 from killscore.seed import seed
 from killscore.settings import settings
@@ -34,6 +35,7 @@ app.add_middleware(
 
 
 app.include_router(runs_router)
+app.include_router(proposals_router)
 
 
 @app.get("/healthz")
