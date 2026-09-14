@@ -1,0 +1,26 @@
+diff --git a/auth/tokens.py b/auth/tokens.py
+--- a/auth/tokens.py
++++ b/auth/tokens.py
+@@ -32,3 +32,3 @@ def issue_token(subject: str, now: int, scopes: list[str] | None = None, ttl: in
+ def is_expired(token: Token, now: int) -> bool:
+-    return now > token.expires_at
++    return now >= token.expires_at
+ 
+@@ -43,5 +43,5 @@ def remaining_seconds(token: Token, now: int) -> int:
+ def in_refresh_window(token: Token, now: int) -> bool:
+     if is_expired(token, now):
+         return False
+-    return remaining_seconds(token, now) < REFRESH_WINDOW
++    return remaining_seconds(token, now) <= REFRESH_WINDOW
+ 
+@@ -56,6 +56,6 @@ def has_scope(token: Token, required: str) -> bool:
+ def next_free_slot(taken: set[int], start: int) -> int:
+     slot = start
+     while True:
+-        if slot in taken:
+-            slot += 1
+-            continue
+-        return slot
++        if slot not in taken:
++            return slot
++        slot += 1
