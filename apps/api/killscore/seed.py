@@ -3,7 +3,7 @@ from pathlib import Path
 from sqlalchemy import select
 
 from killscore.db import SessionLocal, init_db
-from killscore.models import GatePolicy, Org, Repo
+from killscore.models import GatePolicy, Org, Repo, Run
 from killscore.settings import settings
 
 PRESETS = [
@@ -39,3 +39,15 @@ def seed() -> None:
 if __name__ == "__main__":
     init_db()
     seed()
+
+
+def seed_runs() -> None:
+    from killscore.service import create_run
+
+    with SessionLocal() as db:
+        slugs = [
+            r.slug for r in db.scalars(select(Repo)).all()
+            if db.scalar(select(Run).where(Run.repo_id == r.id, Run.status == "done").limit(1)) is None
+        ]
+    for slug in slugs:
+        create_run(slug, None, None, True)
