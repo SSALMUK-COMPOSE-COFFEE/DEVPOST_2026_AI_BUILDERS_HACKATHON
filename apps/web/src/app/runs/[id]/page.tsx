@@ -12,7 +12,7 @@ export default async function RunPage({ params, searchParams }: { params: Promis
   const mutants = await api<MutantSummary[]>(`/v1/runs/${id}/mutants`);
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <div className="mb-2 flex items-center justify-between">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-xl font-semibold">
           Run <span className="font-mono text-zinc-500">{run.id}</span>
           {run.repo && <span className="ml-2 font-mono text-sm text-zinc-500">demo/{run.repo}</span>}

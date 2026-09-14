@@ -124,11 +124,11 @@ export function RunLive({ initial, initialMutants, replay }: Props) {
           const survivors = list.filter((m) => m.status === "survived").length;
           return (
             <section key={key} className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-              <div className="mb-3 flex items-baseline justify-between">
+              <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3">
                 <h3 className="font-mono text-sm">
                   <span className="text-zinc-400">{file}::</span>{fn}
                 </h3>
-                <span className={`text-xs ${survivors ? "text-red-600" : "text-zinc-400"}`}>{survivors} survived / {list.length}</span>
+                <span className={`shrink-0 text-xs ${survivors ? "text-red-600" : "text-zinc-400"}`}>{survivors} survived / {list.length}</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {list.map((m) => (

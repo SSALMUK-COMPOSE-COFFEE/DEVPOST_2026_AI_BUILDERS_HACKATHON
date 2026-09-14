@@ -47,7 +47,7 @@ export function GatePanel({ presets }: { presets: RepoPreset[] }) {
   const badgeText = v ? `mutation ${pct(v.score)} · ${v.passed ? "passing" : "failing"}` : "no run";
 
   return (
-    <div className="grid gap-8 md:grid-cols-[1fr_1.2fr]">
+    <div className="grid gap-8 md:grid-cols-[1fr_1.2fr] [&>section]:min-w-0">
       <section className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
         <h2 className="mb-4 font-semibold">Policy</h2>
         <label className="mb-1 block text-xs font-medium text-zinc-500">Repository</label>
