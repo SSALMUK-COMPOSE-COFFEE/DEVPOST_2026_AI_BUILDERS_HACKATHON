@@ -6,7 +6,7 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://killscore:killscore@localhost:5432/killscore"
     openrouter_api_key: str = ""
-    openrouter_model: str = "anthropic/claude-sonnet-4.5"
+    openrouter_model: str = "anthropic/claude-sonnet-5"
     runner_workers: int = 8
     mutant_timeout_sec: int = 8
     demo_root: str = "demo"
