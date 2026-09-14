@@ -8,6 +8,7 @@ from sqlalchemy import select
 
 from killscore import broker
 from killscore.db import SessionLocal
+from killscore.engine import normalize
 from killscore.logging import get_logger
 from killscore.models import Mutant, Repo, Run, TargetFunction, TestExecution
 from killscore.runner import run as run_mutation
@@ -87,7 +88,7 @@ def _execute(run_id: str, path: str, diff_only: bool) -> None:
                 sources: dict[str, str] = {}
                 for item in data["items"]:
                     if item["file"] not in sources:
-                        sources[item["file"]] = (repo / item["file"]).read_text()
+                        sources[item["file"]] = normalize((repo / item["file"]).read_text())
                     m = Mutant(
                         run_id=run_id, key=item["id"], file=item["file"], function=item["function"],
                         operator=item["operator"], line=item["line"], description=item["description"],

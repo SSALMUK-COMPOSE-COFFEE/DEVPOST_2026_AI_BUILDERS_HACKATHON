@@ -66,7 +66,8 @@ def propose_test(mutant_id: str) -> ProposedTest:
         run = db.get(Run, m.run_id)
         repo = repo_path(run.repo) if run.repo else Path(settings.runs_root) / run.id
         mutant_key, file, function, description = m.key, m.file, m.function, m.description
-        original, mutated = m.original_source, m.mutant_source
+        original, mutated = (repo_path(run.repo) if run.repo else Path(settings.runs_root) / run.id) / m.file, m.mutant_source
+        original = original.read_text()
         run_id = run.id
 
     user = (

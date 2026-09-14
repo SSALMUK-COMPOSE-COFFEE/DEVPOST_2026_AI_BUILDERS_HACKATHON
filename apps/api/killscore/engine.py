@@ -91,6 +91,10 @@ def _sites(func: ast.FunctionDef) -> Iterator[_Site]:
                 yield _Site("swallow_except", node, "except: raise -> except: pass", apply)
 
 
+def normalize(source: str) -> str:
+    return ast.unparse(ast.parse(source))
+
+
 def _functions(tree: ast.Module) -> list[ast.FunctionDef]:
     return [n for n in ast.walk(tree) if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]
 
