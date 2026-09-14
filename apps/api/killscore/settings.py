@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     mutant_timeout_sec: int = 8
     demo_root: str = "demo"
     runs_root: str = "/tmp/killscore-runs"
+    evals_results: str = "evals/out/results.json"
     log_json: bool = True
 
 

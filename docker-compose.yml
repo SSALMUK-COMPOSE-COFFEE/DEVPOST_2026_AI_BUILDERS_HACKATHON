@@ -24,6 +24,7 @@ services:
       - "127.0.0.1:${API_PORT:-18094}:8000"
     volumes:
       - ./demo:/app/demo:ro
+      - ./evals:/app/evals:ro
     depends_on:
       db:
         condition: service_healthy
