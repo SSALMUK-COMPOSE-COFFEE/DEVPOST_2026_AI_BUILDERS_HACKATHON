@@ -25,7 +25,7 @@ export function RunLive({ initial, initialMutants, replay }: Props) {
   const [mutants, setMutants] = useState<MutantSummary[]>(initialMutants);
   const [flipped, setFlipped] = useState<Set<string>>(new Set());
   const [elapsed, setElapsed] = useState(0);
-  const startedAt = useRef(Date.now());
+  const startedAt = useRef<number | null>(null);
 
   useEffect(() => {
     const live = replay || initial.status === "queued" || initial.status === "running";
@@ -34,7 +34,11 @@ export function RunLive({ initial, initialMutants, replay }: Props) {
     es.addEventListener("snapshot", (e) => {
       const d = JSON.parse((e as MessageEvent).data);
       setMutants(d.mutants);
-      setRun((r) => ({ ...r, status: d.status, baseline_passed: d.baseline_passed, line_coverage: d.line_coverage, total: d.total }));
+      const tally = { killed: 0, survived: 0, timeout: 0, error: 0 };
+      for (const m of d.mutants as MutantSummary[]) {
+        if (m.status in tally) tally[m.status as keyof typeof tally] += 1;
+      }
+      setRun((r) => ({ ...r, ...tally, status: d.status, baseline_passed: d.baseline_passed, line_coverage: d.line_coverage, total: d.total }));
     });
     es.addEventListener("status", (e) => setRun((r) => ({ ...r, status: JSON.parse((e as MessageEvent).data).status })));
     es.addEventListener("baseline", (e) => {
@@ -67,8 +71,9 @@ export function RunLive({ initial, initialMutants, replay }: Props) {
   }, [initial.id, initial.status, replay]);
 
   useEffect(() => {
+    startedAt.current ??= Date.now();
     if (run.status === "done" || run.status === "failed") return;
-    const t = setInterval(() => setElapsed(Date.now() - startedAt.current), 200);
+    const t = setInterval(() => setElapsed(Date.now() - (startedAt.current ?? Date.now())), 200);
     return () => clearInterval(t);
   }, [run.status]);
 
