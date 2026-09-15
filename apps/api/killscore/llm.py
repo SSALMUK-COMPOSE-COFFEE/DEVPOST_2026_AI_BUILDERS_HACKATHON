@@ -26,7 +26,7 @@ class LLMError(Exception):
     pass
 
 
-def chat_json(system: str, user: str, schema: dict, purpose: str, max_tokens: int = 4000) -> LLMResult:
+def chat_json(system: str, user: str, schema: dict, purpose: str, max_tokens: int = 16000) -> LLMResult:
     if not settings.openrouter_api_key:
         raise LLMError("OPENROUTER_API_KEY is not set")
     body = {
