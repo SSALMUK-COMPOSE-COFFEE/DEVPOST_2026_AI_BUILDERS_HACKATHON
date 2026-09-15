@@ -9,3 +9,5 @@ node_modules/
 dist/
 .DS_Store
 .orca/
+evals/out/repos/
+evals/out/fixtures_after/

@@ -1,4 +1,4 @@
-.PHONY: up down logs api-test seed eval
+.PHONY: up down logs api-test seed eval eval-fast
 
 up:
 	docker compose up -d --build
@@ -16,4 +16,7 @@ seed:
 	docker compose exec api python -m killscore.seed
 
 eval:
-	cd apps/api && uv run python -m evals.run
+	cd apps/api && set -a && . ../../.env && set +a && PYTHONPATH=../.. uv run python -m evals.run
+
+eval-fast:
+	cd apps/api && PYTHONPATH=../.. uv run python -m evals.run --no-llm
