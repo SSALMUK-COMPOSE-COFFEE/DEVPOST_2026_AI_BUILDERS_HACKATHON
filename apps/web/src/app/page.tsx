@@ -30,7 +30,7 @@ export default async function Home() {
           </h1>
           <p className="max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
             We flipped <code className="rounded bg-zinc-200 px-1 font-mono text-base dark:bg-zinc-800">&gt;</code> to{" "}
-            <code className="rounded bg-zinc-200 px-1 font-mono text-base dark:bg-zinc-800">&gt;=</code> in your payment logic
+            <code className="rounded bg-zinc-200 px-1 font-mono text-base dark:bg-zinc-800">&gt;=</code>
             in your payment logic and all {tests} tests still passed. KillScore mutates only the functions your pull request touched,
             re-runs your own suite against every mutant, and reports the percentage your tests actually killed.
           </p>
