@@ -10,8 +10,25 @@ export const dynamic = "force-dynamic";
 
 export default async function MutantPage({ params }: { params: Promise<{ id: string; k: string }> }) {
   const { id, k } = await params;
-  const m = await api<MutantDetail>(`/v1/mutants/${k}`);
-  const siblings = await api<MutantSummary[]>(`/v1/runs/${id}/mutants`, undefined);
+  let m: MutantDetail | null = null;
+  let siblings: MutantSummary[] = [];
+  try {
+    m = await api<MutantDetail>(`/v1/mutants/${k}`);
+    siblings = await api<MutantSummary[]>(`/v1/runs/${id}/mutants`, undefined);
+  } catch {}
+
+  if (!m) {
+    return (
+      <main className="mx-auto max-w-6xl px-4 py-16 text-center">
+        <h1 className="mb-2 text-xl font-semibold">Mutant not available</h1>
+        <p className="mb-6 text-sm text-zinc-500">
+          No mutant named <span className="font-mono">{k}</span>, or the API is unreachable.
+        </p>
+        <Link href={`/runs/${id}`} className="text-sm text-zinc-500 underline hover:text-zinc-900 dark:hover:text-zinc-100">Back to the run</Link>
+      </main>
+    );
+  }
+
   const survivors = siblings.filter((s) => s.status === "survived");
   const pos = survivors.findIndex((s) => s.id === k);
   const prev = pos > 0 ? survivors[pos - 1] : null;

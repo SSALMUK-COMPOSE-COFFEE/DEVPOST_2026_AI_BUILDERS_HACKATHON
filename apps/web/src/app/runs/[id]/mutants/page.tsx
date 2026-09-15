@@ -9,7 +9,23 @@ export default async function MutantsPage({ params, searchParams }: { params: Pr
   const { id } = await params;
   const { status } = await searchParams;
   const q = status ? `?status=${status}` : "";
-  const mutants = await api<MutantSummary[]>(`/v1/runs/${id}/mutants${q}`);
+  let mutants: MutantSummary[] | null = null;
+  try {
+    mutants = await api<MutantSummary[]>(`/v1/runs/${id}/mutants${q}`);
+  } catch {}
+
+  if (!mutants) {
+    return (
+      <main className="mx-auto max-w-6xl px-4 py-16 text-center">
+        <h1 className="mb-2 text-xl font-semibold">Mutants not available</h1>
+        <p className="mb-6 text-sm text-zinc-500">
+          No run named <span className="font-mono">{id}</span>, or the API is unreachable.
+        </p>
+        <Link href="/runs" className="text-sm text-zinc-500 underline hover:text-zinc-900 dark:hover:text-zinc-100">Back to all runs</Link>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
       <div className="mb-1 text-sm text-zinc-500">

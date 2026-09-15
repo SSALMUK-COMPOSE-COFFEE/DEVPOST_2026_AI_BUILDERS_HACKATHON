@@ -8,8 +8,25 @@ export const dynamic = "force-dynamic";
 export default async function RunPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ replay?: string }> }) {
   const { id } = await params;
   const { replay } = await searchParams;
-  const run = await api<RunSummary & { targets: Target[] }>(`/v1/runs/${id}`);
-  const mutants = await api<MutantSummary[]>(`/v1/runs/${id}/mutants`);
+  let run: (RunSummary & { targets: Target[] }) | null = null;
+  let mutants: MutantSummary[] = [];
+  try {
+    run = await api<RunSummary & { targets: Target[] }>(`/v1/runs/${id}`);
+    mutants = await api<MutantSummary[]>(`/v1/runs/${id}/mutants`);
+  } catch {}
+
+  if (!run) {
+    return (
+      <main className="mx-auto max-w-6xl px-4 py-16 text-center">
+        <h1 className="mb-2 text-xl font-semibold">Run not available</h1>
+        <p className="mb-6 text-sm text-zinc-500">
+          No run named <span className="font-mono">{id}</span>, or the API is unreachable.
+        </p>
+        <Link href="/runs" className="text-sm text-zinc-500 underline hover:text-zinc-900 dark:hover:text-zinc-100">Back to all runs</Link>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
