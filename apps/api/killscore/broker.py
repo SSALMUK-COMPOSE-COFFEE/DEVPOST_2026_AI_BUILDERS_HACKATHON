@@ -16,13 +16,18 @@ def subscribe(run_id: str) -> queue.Queue:
 
 def unsubscribe(run_id: str, q: queue.Queue) -> None:
     with _lock:
-        if q in _subs[run_id]:
-            _subs[run_id].remove(q)
+        subs = _subs.get(run_id)
+        if subs is None:
+            return
+        if q in subs:
+            subs.remove(q)
+        if not subs:
+            del _subs[run_id]
 
 
 def publish(run_id: str, kind: str, data: dict) -> None:
     payload = json.dumps({"kind": kind, **data})
     with _lock:
-        targets = list(_subs[run_id])
+        targets = list(_subs.get(run_id, ()))
     for q in targets:
         q.put((kind, payload))
