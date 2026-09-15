@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#0b0b0e;color:#e4e4e7;font-family:"DejaVu Sans Mono",monospace;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.term{width:1400px;background:#111114;border:1px solid #27272a;border-radius:12px;padding:40px 48px;font-size:30px;line-height:1.55;box-shadow:0 30px 80px #000}
+.dim{color:#71717a}.g{color:#22c55e}.b{color:#60a5fa}
+.card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translateY(60px);opacity:0;background:#dc2626;color:#fff;font-family:"DejaVu Sans",sans-serif;font-weight:700;font-size:54px;padding:40px 64px;border-radius:16px;box-shadow:0 40px 100px #000;transition:all .6s cubic-bezier(.2,.8,.2,1);max-width:1300px;text-align:center;line-height:1.25}
+.card.on{opacity:1;transform:translate(-50%,-50%)}
+.card small{display:block;font-size:26px;font-weight:400;margin-top:18px;opacity:.9;font-family:"DejaVu Sans Mono",monospace}
+</style></head><body>
+<div class="term">
+<div class="dim">$ pytest -q && coverage report</div>
+<div>........................................ <span class="dim">[100%]</span></div>
+<div class="g">40 passed in 0.11s</div>
+<div>&nbsp;</div>
+<div class="dim">Name                 Stmts   Miss  Cover</div>
+<div>billing/pricing.py      43      0   <span class="g">100%</span></div>
+<div>TOTAL                   45      0   <span class="g">100%</span></div>
+</div>
+<div class="card" id="card">We flipped <code>&gt;</code> to <code>&gt;=</code> in the payment logic.<small>40 passed · Coverage 100%</small></div>
+<script>setTimeout(()=>document.getElementById('card').classList.add('on'),3200)</script>
+</body></html>

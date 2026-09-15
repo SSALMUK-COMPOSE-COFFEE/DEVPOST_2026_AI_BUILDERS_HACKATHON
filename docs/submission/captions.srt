@@ -1,0 +1,212 @@
+1
+00:00:00,400 --> 00:00:01,093
+Forty tests.
+
+2
+00:00:01,093 --> 00:00:02,769
+One hundred percent coverage.
+
+3
+00:00:02,769 --> 00:00:08,199
+I flipped one character in the payment logic, greater-than to greater-than-or-equal, and every
+
+4
+00:00:08,199 --> 00:00:10,048
+single one of them still passed.
+
+5
+00:00:10,848 --> 00:00:11,482
+I'm Hajin.
+
+6
+00:00:11,482 --> 00:00:13,954
+The world doesn't need another AI demo.
+
+7
+00:00:13,954 --> 00:00:19,849
+In 2026 about a quarter of merged commits carry AI traces, coding agents write the tests too,
+
+8
+00:00:19,849 --> 00:00:24,984
+and the one number we use to gate releases doesn't move when the tests get worse.
+
+9
+00:00:26,384 --> 00:00:29,622
+This is live at killscore dot hajin dot xyz right now.
+
+10
+00:00:29,622 --> 00:00:31,362
+Nothing here is pre-rendered.
+
+11
+00:00:31,362 --> 00:00:36,519
+KillScore takes the pull request diff, finds only the functions it touched, and plants
+
+12
+00:00:36,519 --> 00:00:37,958
+deliberate bugs in them.
+
+13
+00:00:37,958 --> 00:00:42,756
+Then it runs your own test suite against every mutant in an isolated subprocess.
+
+14
+00:00:42,756 --> 00:00:44,015
+Twenty-seven mutants.
+
+15
+00:00:44,015 --> 00:00:45,814
+Coverage stays at one hundred.
+
+16
+00:00:45,814 --> 00:00:47,973
+Mutation score lands at sixty-three.
+
+17
+00:00:47,973 --> 00:00:50,792
+Ten bugs your tests would let straight through.
+
+18
+00:00:51,892 --> 00:00:53,643
+Here's the one that matters.
+
+19
+00:00:53,643 --> 00:00:56,331
+This is a boundary check in the tier logic.
+
+20
+00:00:56,331 --> 00:00:59,082
+We changed it, and forty tests still passed.
+
+21
+00:00:59,082 --> 00:01:00,458
+No model decided that.
+
+22
+00:01:00,458 --> 00:01:03,646
+A subprocess ran your suite and read the exit code.
+
+23
+00:01:03,646 --> 00:01:05,647
+Now Claude writes a test for it.
+
+24
+00:01:05,647 --> 00:01:11,337
+And before you ever see that test, our runner proves two things: it passes on the original,
+
+25
+00:01:11,337 --> 00:01:13,025
+and it fails on the mutant.
+
+26
+00:01:13,025 --> 00:01:13,900
+Verified kill.
+
+27
+00:01:19,852 --> 00:01:21,487
+Let me show you it failing.
+
+28
+00:01:21,487 --> 00:01:24,454
+Here the model's test fails on the original code.
+
+29
+00:01:24,454 --> 00:01:29,418
+It encoded a wrong expectation, which is exactly the failure we're gating against.
+
+30
+00:01:29,418 --> 00:01:31,417
+Rejected, and queued for a human.
+
+31
+00:01:31,417 --> 00:01:32,809
+And this one timed out.
+
+32
+00:01:32,809 --> 00:01:34,262
+A timeout is not a kill.
+
+33
+00:01:34,262 --> 00:01:37,108
+Counting it as one would inflate our own score.
+
+34
+00:01:38,792 --> 00:01:39,730
+Six components.
+
+35
+00:01:39,730 --> 00:01:43,981
+Exactly one is a model call, and its output never touches the score.
+
+36
+00:01:43,981 --> 00:01:48,607
+The model never marks a mutant killed and never edits the code under test.
+
+37
+00:01:48,607 --> 00:01:49,857
+Seven seconds a run.
+
+38
+00:01:49,857 --> 00:01:54,608
+Zero dollars for the score, about a cent and a half when you ask for a test.
+
+39
+00:01:55,408 --> 00:02:01,121
+Twenty copies of a billing module, each with one planted bug and an AI-written suite at one
+
+40
+00:02:01,121 --> 00:02:02,690
+hundred percent coverage.
+
+41
+00:02:02,690 --> 00:02:04,386
+The suite alone caught six.
+
+42
+00:02:04,386 --> 00:02:06,834
+A model reading the code caught twelve.
+
+43
+00:02:06,834 --> 00:02:08,592
+KillScore surfaced nineteen.
+
+44
+00:02:08,592 --> 00:02:14,493
+And after adding only the tests our runner verified, the mutation score went from seventy-five
+
+45
+00:02:14,493 --> 00:02:15,498
+to ninety-seven.
+
+46
+00:02:15,498 --> 00:02:16,816
+Coverage never moved.
+
+47
+00:02:17,916 --> 00:02:20,246
+The gate turns that into a merge check.
+
+48
+00:02:20,246 --> 00:02:25,744
+Set a threshold, name the paths where no survivor is acceptable, and the pull request gets a
+
+49
+00:02:25,744 --> 00:02:29,568
+GitHub check and an evidence PDF with a hash over every verdict.
+
+50
+00:02:29,568 --> 00:02:30,823
+Free on public repos.
+
+51
+00:02:30,823 --> 00:02:35,364
+Ninety-nine dollars a month for the release engineer who has to press merge.
+
+52
+00:02:36,164 --> 00:02:36,918
+KillScore.
+
+53
+00:02:36,918 --> 00:02:39,932
+Live now at killscore dot hajin dot xyz.
+

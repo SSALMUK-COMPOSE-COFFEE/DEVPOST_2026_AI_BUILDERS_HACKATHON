@@ -1,0 +1,134 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@page{size:1920px 1080px;margin:0}
+*{box-sizing:border-box}
+body{margin:0;font-family:"DejaVu Sans",sans-serif;color:#18181b;background:#fff}
+section{width:1920px;height:1080px;padding:110px 140px;page-break-after:always;position:relative;display:flex;flex-direction:column;justify-content:center}
+section.dark{background:#0b0b0e;color:#fafafa}
+.n{position:absolute;bottom:48px;right:140px;font-size:22px;color:#a1a1aa}
+.tag{position:absolute;top:60px;left:140px;font-size:22px;color:#71717a;letter-spacing:.08em;text-transform:uppercase;font-family:"DejaVu Sans Mono",monospace}
+.dot{display:inline-block;width:14px;height:14px;background:#dc2626;border-radius:3px;margin-right:12px}
+h1{font-size:88px;margin:0 0 30px;letter-spacing:-.03em;line-height:1.05}
+h2{font-size:64px;margin:0 0 36px;letter-spacing:-.02em;line-height:1.1}
+p,li{font-size:34px;line-height:1.45;color:#3f3f46}
+.dark p,.dark li{color:#d4d4d8}
+ul{margin:0;padding-left:34px}li{margin-bottom:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.card{border-radius:24px;padding:48px}
+.g{background:#ecfdf5;border:3px solid #a7f3d0;color:#047857}.r{background:#fef2f2;border:3px solid #fecaca;color:#b91c1c}
+.card b{display:block;font-size:130px;letter-spacing:-.04em;line-height:1}
+.card span{font-size:26px;text-transform:uppercase;letter-spacing:.08em}
+.card small{display:block;font-size:28px;margin-top:18px;opacity:.85}
+code{font-family:"DejaVu Sans Mono",monospace;background:#f4f4f5;padding:2px 12px;border-radius:8px}
+.dark code{background:#27272a}
+.quote{font-size:44px;line-height:1.35;border-left:10px solid #dc2626;padding-left:40px;color:#18181b}
+.shot{width:100%;border-radius:16px;border:2px solid #e4e4e7;box-shadow:0 30px 60px rgba(0,0,0,.12)}
+.boxes{display:flex;gap:22px;align-items:center;margin-top:30px}
+.bx{flex:1;height:170px;border:4px solid #18181b;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px}
+.bx b{font-size:28px}.bx span{font-size:18px;color:#52525b;margin-top:8px}
+.bx.llm{border-style:dashed;border-color:#dc2626;color:#dc2626}.bx.llm span{color:#dc2626}
+.arr{font-size:44px;color:#a1a1aa}
+table{border-collapse:collapse;width:100%;font-size:24px}
+th,td{padding:11px 18px;border-bottom:2px solid #e4e4e7;text-align:left}th{color:#71717a;font-size:22px;text-transform:uppercase;letter-spacing:.06em}
+td.k{font-weight:700}
+.tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
+.tier{border:3px solid #e4e4e7;border-radius:24px;padding:44px}.tier.f{border-color:#dc2626}
+.tier h3{font-size:36px;margin:0 0 10px}.tier .p{font-size:64px;font-weight:700;margin:0 0 24px}.tier .p i{font-size:24px;font-style:normal;color:#71717a;font-weight:400}
+.tier li{font-size:26px}
+</style></head><body>
+
+<section class="dark">
+<div class="tag" style="color:#a1a1aa"><span class="dot"></span>AI Builders Hackathon 2026 · SaaS</div>
+<h1 style="font-size:120px">KillScore</h1>
+<p style="font-size:44px;max-width:1500px">The SaaS release gate that scores whether your AI-written tests can actually catch a bug.</p>
+<p style="font-size:34px;color:#f87171;font-family:'DejaVu Sans Mono',monospace;margin-top:40px">killscore.hajin.xyz</p>
+<div class="n" style="color:#52525b">1 / 10</div>
+</section>
+
+<section>
+<div class="tag">Problem</div>
+<div class="two">
+<div><h2>The number you gate on cannot see this.</h2><p>We flipped <code>&gt;</code> to <code>&gt;=</code> in a payment function. Every one of the 40 AI-written tests still passed. Coverage did not move.</p></div>
+<div style="display:grid;gap:30px"><div class="card g"><span>Line coverage</span><b>100%</b><small>40 tests green</small></div><div class="card r"><span>Mutation score</span><b>63%</b><small>10 of 27 planted bugs unnoticed</small></div></div>
+</div>
+<div class="n">2 / 10</div>
+</section>
+
+<section>
+<div class="tag">Why now</div>
+<h2>AI-written tests fail silently.</h2>
+<div class="quote">A test derived from the implementation cannot disagree with the implementation. If the code has a bug, the test records that bug as the expected value and reports green.</div>
+<ul style="margin-top:50px"><li>About a quarter of merged commits in 2026 carry AI traces. The agent writes the tests too.</li><li>Coverage measures whether a line ran. It cannot measure whether a test could have failed.</li><li>The only way to find out is to break the code on purpose and see whether anything screams.</li></ul>
+<div class="n">3 / 10</div>
+</section>
+
+<section>
+<div class="tag">Target users</div>
+<h2>The person who presses merge.</h2>
+<p>One QA lead or release engineer in a 20 to 200 person engineering org that has adopted coding agents. Every week they approve a release on a single number.</p>
+<div class="quote" style="margin-top:50px">Codecov and SonarQube measure whether code ran.<br>We measure whether tests can disprove it.</div>
+<div class="n">4 / 10</div>
+</section>
+
+<section>
+<div class="tag">How it works</div>
+<h2>Six components. One model call.</h2>
+<div class="boxes">
+<div class="bx"><b>Diff scoper</b><span>PR diff → touched functions</span></div><div class="arr">→</div>
+<div class="bx"><b>Mutation engine</b><span>9 AST operators</span></div><div class="arr">→</div>
+<div class="bx"><b>Runner</b><span>isolated pytest · 8 s timeout · 8 workers</span></div><div class="arr">→</div>
+<div class="bx"><b>Gate</b><span>GitHub Checks · evidence PDF</span></div>
+</div>
+<div class="boxes">
+<div class="bx llm"><b>Claude</b><span>proposes one test per survivor</span></div><div class="arr">→</div>
+<div class="bx"><b>Verifier</b><span>PASS on original · FAIL on mutant</span></div><div class="arr">→</div>
+<div class="bx"><b>Next.js</b><span>SSE live tiles</span></div><div style="flex:1"></div>
+</div>
+<p style="margin-top:40px">Diff scoping turns hours of full-repo mutation into seconds, which is what makes this a pull-request gate instead of a CLI. Timeouts stay in the denominator and never count as kills.</p>
+<div class="n">5 / 10</div>
+</section>
+
+<section>
+<div class="tag">Live demo · killscore.hajin.xyz</div>
+<div class="two"><img class="shot" src="s-run.png"><img class="shot" src="s-mutant.png"></div>
+<p style="margin-top:36px">Left: tiles flip green, red or grey as each mutant's verdict lands. Right: a survivor, the exact diff, and the proposal panel.</p>
+<div class="n">6 / 10</div>
+</section>
+
+<section>
+<div class="tag">AI technologies used</div>
+<h2>Reviewer, not author.</h2>
+<div class="two">
+<div><ul><li>Claude Sonnet via OpenRouter, strict JSON schema output.</li><li>Two-step verification: the proposed test must pass on the original and fail on the mutant before anyone sees it.</li><li>A proposal citing a mutant id not in the run is rejected before execution.</li><li>Every call logged: tokens, cost, latency. About $0.015 per proposal.</li></ul></div>
+<div class="quote" style="font-size:36px">The model never computes the score.<br>The model never marks a mutant killed.<br>The model never edits the code under test.<br>A test is shown only after our runner proves it.</div>
+</div>
+<p style="margin-top:40px">On the demo repo: 10 proposals, 9 verified kills, 1 rejected because it failed on the original code. The rejection is the product working.</p>
+<div class="n">7 / 10</div>
+</section>
+
+<section>
+<div class="tag">Evaluation</div>
+<h2 style="font-size:50px;margin-bottom:20px">20 planted bugs. Coverage never moved.</h2>
+<table><thead><tr><th>Metric</th><th>AI-written suite (baseline)</th><th>LLM-only reviewer (ablation)</th><th>KillScore</th><th>n</th></tr></thead><tbody><tr><td>Planted bugs detected</td><td>6 / 20</td><td>12 / 20</td><td class='k'>19 / 20</td><td>20</td></tr><tr><td>Mutation score</td><td>75%</td><td>—</td><td class='k'>75% → 97% after adding verified tests</td><td>101 mutants</td></tr><tr><td>Line coverage</td><td>100%</td><td>—</td><td class='k'>100%</td><td>—</td></tr><tr><td>Proposed tests verified</td><td>—</td><td>—</td><td class='k'>92% (22 / 24)</td><td>24</td></tr><tr><td>Tests shown without proof</td><td>—</td><td>—</td><td class='k'>0 (structurally impossible)</td><td>—</td></tr><tr><td>p50 / p95 per run</td><td>—</td><td>47.0s / 116.9s</td><td class='k'>2.5s / 4.9s</td><td>20</td></tr><tr><td>LLM cost per run</td><td>—</td><td>$0.055</td><td class='k'>$0.000 scoring · $0.018 per proposed test</td><td>20</td></tr></tbody></table>
+<p style="margin-top:18px;font-size:22px;color:#71717a">Twenty copies of a billing module, one planted bug each, AI-written suite at 100% line coverage. Regenerate with <code>make eval</code>. Live at /evals.</p>
+<div class="n">8 / 10</div>
+</section>
+
+<section>
+<div class="tag">Business model</div>
+<h2>Priced per repo, not per seat.</h2>
+<div class="tiers">
+<div class="tier"><h3>Free</h3><div class="p">$0</div><ul><li>Public repos</li><li>200 mutants per run</li><li>No merge gate</li></ul></div>
+<div class="tier f"><h3>Team</h3><div class="p">$99 <i>/ month</i></div><ul><li>5 private repos</li><li>PR merge gate</li><li>Slack alerts</li></ul></div>
+<div class="tier"><h3>Business</h3><div class="p">$399 <i>/ month</i></div><ul><li>Unlimited repos</li><li>Evidence PDF · SSO</li><li>Self-hosted runner</li></ul></div>
+</div>
+<div class="n">9 / 10</div>
+</section>
+
+<section class="dark">
+<div class="tag" style="color:#a1a1aa">What's next</div>
+<h2>Ship it to the merge button.</h2>
+<ul><li>GitHub App with the real Checks API</li><li>JavaScript and TypeScript mutation operators</li><li>Self-hosted runners with network-isolated containers for private code</li><li>Survivor clustering so a reviewer sees five themes, not fifty tiles</li></ul>
+<p style="margin-top:60px;font-family:'DejaVu Sans Mono',monospace;color:#f87171;font-size:38px">killscore.hajin.xyz · github.com/SSALMUK-COMPOSE-COFFEE/DEVPOST_2026_AI_BUILDERS_HACKATHON</p>
+<div class="n" style="color:#52525b">10 / 10</div>
+</section>
+</body></html>
