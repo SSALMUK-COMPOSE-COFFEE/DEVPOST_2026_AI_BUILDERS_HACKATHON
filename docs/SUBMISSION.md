@@ -35,7 +35,7 @@ For each survivor, Claude drafts one test that should kill it. Before you see th
 
 ### Challenges
 
-Getting the score to mean something. Timeouts are the obvious way to inflate mutation scores, so they are excluded from kills by design. Making the diff scoper the product: full-repo mutation takes hours; scoping to touched functions makes it seconds and makes it a PR gate rather than a CLI. Keeping the model honest: the verification loop rejects roughly a third of Claude's proposals in our runs, which is the point.
+Getting the score to mean something. Timeouts are the obvious way to inflate mutation scores, so they are excluded from kills by design. Making the diff scoper the product: full-repo mutation takes hours; scoping to touched functions makes it seconds and makes it a PR gate rather than a CLI. Keeping the model honest: on the demo repo the verification loop accepted 9 of 10 Claude proposals and rejected one that failed on the original code, meaning the model had encoded a wrong expectation as a test. That rejection is the product working.
 
 ### Accomplishments
 
@@ -59,14 +59,14 @@ GitHub App with real Checks API, JavaScript/TypeScript operators, Slack alerts, 
 | 0:35–1:15 | 타일 실시간 뒤집힘 | Twenty-seven mutants. Coverage stays at a hundred. Mutation score lands at sixty-three. Ten bugs your tests would let through. |
 | 1:15–1:35 | 생존자 상세, diff 풀스크린 | Here's the one that matters. This is the boundary in the tier check. We changed it, and forty tests still passed. No model decided that. A subprocess ran your suite and read the exit code. |
 | 1:35–1:50 | Propose a test → VERIFIED KILL | Now Claude writes a test for it. Before you ever see that test, our runner proves two things: it passes on the original, and it fails on the mutant. Verified kill. |
-| 1:50–2:10 | REJECTED 배지 · auth-tokens 회색 TIMEOUT 타일 | Let me show you it failing. Here the model's test passes on both. It doesn't kill anything. Rejected, queued for a human. And this one timed out. A timeout is not a kill. Counting it as one would inflate our own score. |
+| 1:50–2:10 | billing-api 생존자 `calculate_invoice L47 0→1`의 REJECTED 배지 · auth-tokens 회색 TIMEOUT 타일 | Let me show you it failing. Here the model's test fails on the original. It encoded a wrong expectation, exactly the failure mode we're gating. Rejected, queued for a human. And this one timed out. A timeout is not a kill. Counting it as one would inflate our own score. |
 | 2:10–2:28 | README 아키텍처 다이어그램 | Six components. Exactly one is a model call, and its output never touches the score. Seven seconds a run, four cents when you ask for a test. |
 | 2:28–2:38 | /evals 표 | Twenty repos with twenty bugs I planted. The AI-written suite caught six. KillScore surfaced nineteen. Coverage never moved. |
 | 2:38–2:45 | /gate 배지 + /pricing | Free on public repos. Ninety-nine dollars a month for the release engineer who has to press merge. |
 
 규칙: 자막 필수. "not pre-rendered"를 입으로 말할 것. 슬라이드는 아키텍처 1장만.
 
-촬영 전 준비: 생존자 상세에서 Propose a test를 2~3개 미리 눌러 VERIFIED KILL과 REJECTED가 각각 한 번씩 화면에 남아 있게 해둘 것. auth-tokens 런의 next_free_slot 타일이 회색인지 확인.
+촬영 전 준비: billing-api 최신 런의 생존자 10개에 이미 제안이 붙어 있음(VERIFIED 9 · REJECTED 1, `calculate_invoice` L47). 런을 새로 돌리면 제안이 없는 새 런이 생기니 촬영은 기존 런 URL로 할 것. auth-tokens 런의 next_free_slot 타일이 회색인지 확인.
 
 ## 3. 덱 10장
 
