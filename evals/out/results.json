@@ -1,0 +1,980 @@
+{
+  "generated_at": "2026-09-15T16:19:17.974847+00:00",
+  "n": 20,
+  "baseline_detected": 6,
+  "ablation_detected": 12,
+  "killscore_detected": 19,
+  "killscore_any_survivor_in_function": 16,
+  "mutation_score": 0.7463768115942029,
+  "total_mutants": 138,
+  "line_coverage": 1.0,
+  "p50_ms": 2487,
+  "p95_ms": 4903,
+  "ablation_cost_usd_per_run": 0.0554632,
+  "proposals": {
+    "before_score": 0.7524752475247525,
+    "after_score": 0.9702970297029703,
+    "before_total": 101,
+    "before_survived": 25,
+    "after_survived": 3,
+    "proposed": 24,
+    "verified": 22,
+    "cost_usd": 0.433162,
+    "p50_latency_ms": 4677
+  },
+  "total_llm_cost_usd": 1.542426,
+  "wall_time_s": 948.0461217658594,
+  "rows": [
+    {
+      "metric": "Planted bugs detected",
+      "baseline": "6 / 20",
+      "ablation": "12 / 20",
+      "killscore": "19 / 20",
+      "n": "20"
+    },
+    {
+      "metric": "Mutation score",
+      "baseline": "75%",
+      "ablation": "\u2014",
+      "killscore": "75% \u2192 97% after adding verified tests",
+      "n": "101 mutants"
+    },
+    {
+      "metric": "Line coverage",
+      "baseline": "100%",
+      "ablation": "\u2014",
+      "killscore": "100%",
+      "n": "\u2014"
+    },
+    {
+      "metric": "Proposed tests verified",
+      "baseline": "\u2014",
+      "ablation": "\u2014",
+      "killscore": "92% (22 / 24)",
+      "n": "24"
+    },
+    {
+      "metric": "Tests shown without proof",
+      "baseline": "\u2014",
+      "ablation": "\u2014",
+      "killscore": "0 (structurally impossible)",
+      "n": "\u2014"
+    },
+    {
+      "metric": "p50 / p95 per run",
+      "baseline": "\u2014",
+      "ablation": "47.0s / 116.9s",
+      "killscore": "2.5s / 4.9s",
+      "n": "20"
+    },
+    {
+      "metric": "LLM cost per run",
+      "baseline": "\u2014",
+      "ablation": "$0.055",
+      "killscore": "$0.000 scoring \u00b7 $0.018 per proposed test",
+      "n": "20"
+    }
+  ],
+  "bugs": [
+    {
+      "id": "bug_01",
+      "category": "tier_boundary",
+      "function": "tier_for_usage",
+      "description": "free tier boundary excludes exactly 100 units",
+      "baseline": false,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_02",
+      "category": "tier_boundary",
+      "function": "tier_for_usage",
+      "description": "team tier boundary excludes exactly 5000 units",
+      "baseline": false,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_03",
+      "category": "tier_boundary",
+      "function": "tier_for_usage",
+      "description": "negative guard accepts -1",
+      "baseline": false,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_04",
+      "category": "ge_to_gt",
+      "function": "prorate",
+      "description": "full period no longer returns full amount at exactly days_in_period",
+      "baseline": false,
+      "ablation": false,
+      "killscore": true
+    },
+    {
+      "id": "bug_05",
+      "category": "ge_to_gt",
+      "function": "can_upgrade",
+      "description": "zero balance blocks upgrade",
+      "baseline": true,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_06",
+      "category": "ge_to_gt",
+      "function": "retry_allowed",
+      "description": "allows one retry beyond MAX_RETRIES",
+      "baseline": false,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_07",
+      "category": "rounding",
+      "function": "round_cents",
+      "description": "half-up rounding replaced by truncation",
+      "baseline": false,
+      "ablation": false,
+      "killscore": false
+    },
+    {
+      "id": "bug_08",
+      "category": "rounding",
+      "function": "prorate",
+      "description": "proration rounds up instead of half-up",
+      "baseline": false,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_09",
+      "category": "and_or",
+      "function": "normalize_email",
+      "description": "leading-or-trailing @ check became leading-and-trailing",
+      "baseline": false,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_10",
+      "category": "and_or",
+      "function": "parse_coupon",
+      "description": "malformed coupon guard requires both failures",
+      "baseline": false,
+      "ablation": false,
+      "killscore": true
+    },
+    {
+      "id": "bug_11",
+      "category": "none_check",
+      "function": "retry_allowed",
+      "description": "empty error string treated like no error",
+      "baseline": false,
+      "ablation": false,
+      "killscore": true
+    },
+    {
+      "id": "bug_12",
+      "category": "none_check",
+      "function": "normalize_email",
+      "description": "None guard removed",
+      "baseline": true,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_13",
+      "category": "early_return_inversion",
+      "function": "apply_tax",
+      "description": "tax exemption inverted",
+      "baseline": true,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_14",
+      "category": "early_return_inversion",
+      "function": "is_in_trial_window",
+      "description": "signup-in-future guard returns True",
+      "baseline": true,
+      "ablation": false,
+      "killscore": true
+    },
+    {
+      "id": "bug_15",
+      "category": "date_window",
+      "function": "is_in_trial_window",
+      "description": "trial window includes day 14",
+      "baseline": false,
+      "ablation": false,
+      "killscore": true
+    },
+    {
+      "id": "bug_16",
+      "category": "date_window",
+      "function": "is_overdue",
+      "description": "overdue on the last grace day",
+      "baseline": false,
+      "ablation": false,
+      "killscore": true
+    },
+    {
+      "id": "bug_17",
+      "category": "wrong_default",
+      "function": "is_overdue",
+      "description": "default grace period silently extended",
+      "baseline": false,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_18",
+      "category": "wrong_default",
+      "function": "retry_allowed",
+      "description": "retry limit constant raised",
+      "baseline": false,
+      "ablation": false,
+      "killscore": true
+    },
+    {
+      "id": "bug_19",
+      "category": "exception_swallow",
+      "function": "charge",
+      "description": "gateway decline swallowed and reported as success",
+      "baseline": true,
+      "ablation": true,
+      "killscore": true
+    },
+    {
+      "id": "bug_20",
+      "category": "exception_swallow",
+      "function": "refund",
+      "description": "gateway decline swallowed and reported as success",
+      "baseline": true,
+      "ablation": true,
+      "killscore": true
+    }
+  ],
+  "notes": [
+    "Runs are diff-scoped to the function the planted bug touched, as a PR gate would be.",
+    "KillScore detection: the suite is red (gate blocks) or the buggy function has a surviving mutant in the bug's operator family.",
+    "Ablation: the model sees module + tests and must name the buggy function; scored by function name match.",
+    "Mutation score after: verified proposed tests appended to the base fixture and the whole module re-scored.",
+    "A timeout is never counted as a kill."
+  ],
+  "details": [
+    {
+      "bug": {
+        "id": "bug_01",
+        "category": "tier_boundary",
+        "function": "tier_for_usage",
+        "description": "free tier boundary excludes exactly 100 units",
+        "find": "if units <= TIERS[0].max_units:",
+        "replace": "if units < TIERS[0].max_units:"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 15,
+        "killed": 11,
+        "survived": 4,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.7333333333333333,
+        "line_coverage": 1.0,
+        "duration_ms": 4903,
+        "survivors_in_function": [
+          "billing.py::tier_for_usage:4 < -> <=",
+          "billing.py::tier_for_usage:5 < -> <=",
+          "billing.py::tier_for_usage:7 <= -> <",
+          "billing.py::tier_for_usage:9 0 -> 1"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "tier_for_usage",
+        "explanation": "The boundary check for the free tier is inconsistent with the team tier check. It uses `units < TIERS[0].max_units` (strict less-than) while the team tier check uses `units <= TIERS[1].max_units` (inclusive). This means a customer with exactly 100 units (the free tier's max_units) is incorrectly classified as 'team' instead of 'free', even though 100 is meant to be the inclusive limit of the free tier (consistent with how the team tier's own max_units=5000 is treated inclusively). No test exercises usage exactly at 100 units, so 100% line coverage doesn't catch this off-by-one boundary bug. While it happens to not affect the computed subtotal (since billable units are still 0 for the mislabeled 'team' tier), the returned tier name is wrong, which could affect downstream logic such as `can_upgrade` or tier-based reporting/analytics that depend on the correct tier label at the boundary.",
+        "cost_usd": 0.04159,
+        "latency_ms": 36459,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_02",
+        "category": "tier_boundary",
+        "function": "tier_for_usage",
+        "description": "team tier boundary excludes exactly 5000 units",
+        "find": "if units <= TIERS[1].max_units:",
+        "replace": "if units < TIERS[1].max_units:"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 15,
+        "killed": 11,
+        "survived": 4,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.7333333333333333,
+        "line_coverage": 1.0,
+        "duration_ms": 3190,
+        "survivors_in_function": [
+          "billing.py::tier_for_usage:4 < -> <=",
+          "billing.py::tier_for_usage:5 <= -> <",
+          "billing.py::tier_for_usage:7 < -> <=",
+          "billing.py::tier_for_usage:9 0 -> 1"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "tier_for_usage",
+        "explanation": "The boundary check for the 'team' tier is inconsistent with the 'free' tier's boundary check. For the free tier, max_units is inclusive: `units <= TIERS[0].max_units` (so units==100 is still free). But for the team tier, the code uses `units < TIERS[1].max_units` (strict less-than), so units==5000 (the team tier's own max_units) incorrectly falls through to the 'business' tier instead of being treated as the last unit of the 'team' tier. This off-by-one inconsistency means a customer with exactly 5000 billable units is billed at the business tier price (0.25) instead of the team price (0.40), which is likely not the intended behavior given the 'max_units' naming convention establishing an inclusive upper bound (as used for the free tier). No test exercises the exact boundary value of 5000, so this bug slips through despite 100% line coverage (tests only use 50, 2500, and 20000).",
+        "cost_usd": 0.06056,
+        "latency_ms": 55215,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_03",
+        "category": "tier_boundary",
+        "function": "tier_for_usage",
+        "description": "negative guard accepts -1",
+        "find": "if units < 0:",
+        "replace": "if units < -1:"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 15,
+        "killed": 11,
+        "survived": 4,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.7333333333333333,
+        "line_coverage": 1.0,
+        "duration_ms": 3079,
+        "survivors_in_function": [
+          "billing.py::tier_for_usage:4 < -> <=",
+          "billing.py::tier_for_usage:5 <= -> <",
+          "billing.py::tier_for_usage:7 <= -> <",
+          "billing.py::tier_for_usage:10 1 -> 2"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "tier_for_usage",
+        "explanation": "The validation check `if units < -1: raise ValueError(...)` is off by one. According to the docstring/intent, units must be non-negative, so the check should be `if units < 0`. As written, units == -1 slips through without raising and is silently treated as the free tier (since -1 <= 100). The test suite only exercises units = -5, which correctly triggers the raise, so it never notices that -1 is incorrectly accepted as valid input.",
+        "cost_usd": 0.028132,
+        "latency_ms": 22662,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_04",
+        "category": "ge_to_gt",
+        "function": "prorate",
+        "description": "full period no longer returns full amount at exactly days_in_period",
+        "find": "if days_used >= days_in_period:",
+        "replace": "if days_used > days_in_period:"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 11,
+        "killed": 7,
+        "survived": 4,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.6363636363636364,
+        "line_coverage": 1.0,
+        "duration_ms": 2516,
+        "survivors_in_function": [
+          "billing.py::prorate:5 > -> >=",
+          "billing.py::prorate:7 <= -> <",
+          "billing.py::prorate:9 0 -> 1",
+          "billing.py::prorate:10 0 -> 1"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "calculate_invoice",
+        "explanation": "calculate_invoice applies a single flat rate to all billable units above the free threshold, using only the unit_price of the tier that matches the *total* usage, rather than stacking rates across tier boundaries (100 free, then team rate up to 5000, then business rate beyond). This creates a pricing cliff: e.g. at 5000 units (team tier) billable=4900 * 0.40 = $1960, but at 5001 units (business tier) billable=4901 * 0.25 = $1225.25 \u2014 a customer using *more* units ends up paying *less*. The test suite only exercises the team tier (600 units) and never checks calculate_invoice's numeric output for the business tier, so this logic bug goes undetected despite 100% line coverage.",
+        "cost_usd": 0.0372,
+        "latency_ms": 33263,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_05",
+        "category": "ge_to_gt",
+        "function": "can_upgrade",
+        "description": "zero balance blocks upgrade",
+        "find": "and balance_due <= 0",
+        "replace": "and balance_due < 0"
+      },
+      "baseline_detected": true,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": true,
+        "any_survivor_in_function": true,
+        "total": 8,
+        "killed": 6,
+        "survived": 2,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.75,
+        "line_coverage": 1.0,
+        "duration_ms": 3270,
+        "survivors_in_function": [
+          "billing.py::can_upgrade:5 > -> >=",
+          "billing.py::can_upgrade:7 0 -> 1"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "can_upgrade",
+        "explanation": "can_upgrade requires balance_due < 0 (strictly negative) to allow an upgrade, but a customer with no outstanding balance (balance_due == 0) should also be eligible to upgrade. The test test_can_upgrade calls can_upgrade(\"free\", \"team\", Decimal(\"0\")) expecting True, which only works if the check were balance_due <= 0. With the strict '<' comparison, a zero balance incorrectly fails the upgrade eligibility check, revealing an off-by-one boundary bug in the condition.",
+        "cost_usd": 0.06051,
+        "latency_ms": 56475,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_06",
+        "category": "ge_to_gt",
+        "function": "retry_allowed",
+        "description": "allows one retry beyond MAX_RETRIES",
+        "find": "return attempts < MAX_RETRIES",
+        "replace": "return attempts <= MAX_RETRIES"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 6,
+        "killed": 5,
+        "survived": 1,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.8333333333333334,
+        "line_coverage": 1.0,
+        "duration_ms": 1862,
+        "survivors_in_function": [
+          "billing.py::retry_allowed:3 <= -> <"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "retry_allowed",
+        "explanation": "MAX_RETRIES is defined as 3, implying at most 3 retries should be permitted. The check `attempts <= MAX_RETRIES` allows a retry when attempts == 3, i.e. it permits a 4th retry attempt beyond the stated maximum (off-by-one). It should be `attempts < MAX_RETRIES` so that once 3 attempts have already been made, no further retry is allowed. The test suite only exercises attempts=1 (under limit) and attempts=10 (way over limit), never the boundary value attempts=3, so the off-by-one error goes undetected despite full line coverage.",
+        "cost_usd": 0.072484,
+        "latency_ms": 70919,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_07",
+        "category": "rounding",
+        "function": "round_cents",
+        "description": "half-up rounding replaced by truncation",
+        "find": "rounding=ROUND_HALF_UP)",
+        "replace": "rounding=\"ROUND_DOWN\")"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": false,
+        "caught_by_suite": false,
+        "any_survivor_in_function": false,
+        "total": 1,
+        "killed": 1,
+        "survived": 0,
+        "timeout": 0,
+        "error": 0,
+        "score": 1.0,
+        "line_coverage": 1.0,
+        "duration_ms": 1122,
+        "survivors_in_function": []
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "calculate_invoice",
+        "explanation": "Billing is not graduated across tiers: `billable` is always computed as `units - TIERS[0].max_units` and then priced entirely at the single unit_price of whichever tier the total usage falls into, rather than applying each tier's rate to the units that actually fall within that tier's range. Since higher tiers (business, 0.25) have a lower unit_price than the team tier (0.40), crossing a tier boundary can make the total bill drop sharply even though usage increased slightly. For example, at 5000 units (team tier) billable=4900 units * 0.40 = 1960.00, but at 5001 units (business tier) billable=4901 units * 0.25 = 1225.25 \\u2014 one additional unit of usage causes the bill to fall by roughly 735, which is clearly an unintended billing behavior. The test suite only exercises the free tier (50 units) and team tier (600 units) cases and never exercises usage near/at/above the 5000-unit boundary or within the business tier, so this cliff-edge under-billing bug goes undetected despite 100% line coverage.",
+        "cost_usd": 0.075458,
+        "latency_ms": 71671,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_08",
+        "category": "rounding",
+        "function": "prorate",
+        "description": "proration rounds up instead of half-up",
+        "find": "return round_cents(amount * Decimal(days_used) / Decimal(days_in_period))",
+        "replace": "return (amount * Decimal(days_used) / Decimal(days_in_period)).quantize(Decimal(\"0.01\"), rounding=\"ROUND_CEILING\")"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 11,
+        "killed": 7,
+        "survived": 4,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.6363636363636364,
+        "line_coverage": 1.0,
+        "duration_ms": 4608,
+        "survivors_in_function": [
+          "billing.py::prorate:5 >= -> >",
+          "billing.py::prorate:7 <= -> <",
+          "billing.py::prorate:9 0 -> 1",
+          "billing.py::prorate:10 0 -> 1"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "prorate",
+        "explanation": "The prorate function quantizes the prorated amount using rounding=\"ROUND_CEILING\" instead of the ROUND_HALF_UP mode used consistently elsewhere in the module (round_cents). This means any prorated charge that doesn't divide evenly will always be rounded up in favor of the seller, e.g. prorate(Decimal('10.00'), 1, 3) yields Decimal('3.34') instead of the expected Decimal('3.33') under standard half-up rounding. The existing tests (test_prorate_partial, test_prorate_full_period, test_prorate_unused) only exercise cases where the division is exact (10/30, full period, zero usage), so they never exercise a case where ROUND_CEILING vs ROUND_HALF_UP produce different results, letting this rounding-mode bug slip through with 100% line coverage.",
+        "cost_usd": 0.036322,
+        "latency_ms": 30479,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_09",
+        "category": "and_or",
+        "function": "normalize_email",
+        "description": "leading-or-trailing @ check became leading-and-trailing",
+        "find": "cleaned.startswith(\"@\") or cleaned.endswith(\"@\")",
+        "replace": "cleaned.startswith(\"@\") and cleaned.endswith(\"@\")"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 5,
+        "killed": 4,
+        "survived": 1,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.8,
+        "line_coverage": 1.0,
+        "duration_ms": 3063,
+        "survivors_in_function": [
+          "billing.py::normalize_email:4 and -> or"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "normalize_email",
+        "explanation": "The validation check `\"@\" not in cleaned or cleaned.startswith(\"@\") and cleaned.endswith(\"@\")` uses `and` where the intent seems to be catching malformed addresses like a leading or trailing `@` (missing local part or domain). Because of operator precedence and the `and`, an address such as `@example.com` (starts with `@` but doesn't end with `@`) or `foo@` (ends with `@` but doesn't start with `@`) is NOT rejected, even though these are clearly invalid emails missing a local part or domain. The tests only exercise a fully valid email and a string with no `@` at all, so this logic flaw is never exercised despite 100% line coverage.",
+        "cost_usd": 0.025022,
+        "latency_ms": 19077,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_10",
+        "category": "and_or",
+        "function": "parse_coupon",
+        "description": "malformed coupon guard requires both failures",
+        "find": "if not sep or not pct.isdigit():",
+        "replace": "if not sep and not pct.isdigit():"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 5,
+        "killed": 4,
+        "survived": 1,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.8,
+        "line_coverage": 1.0,
+        "duration_ms": 2801,
+        "survivors_in_function": [
+          "billing.py::parse_coupon:4 and -> or"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "calculate_invoice",
+        "explanation": "The invoice subtotal is computed as `billable * tier.unit_price` where `billable = units - 100` (the free allowance) regardless of which tier the usage falls into, and there's no progressive/tiered accumulation across tier boundaries. Since the team rate (0.40/unit) is higher than the business rate (0.25/unit), all units above the free allowance get billed at whichever single tier's price corresponds to the *total* usage, causing a paradox: crossing from 5000 to 5001 units (team -> business boundary) actually *lowers* the total price (4900*0.40=1960.00 at 5000 units vs 4901*0.25=1225.25 at 5001 units) instead of increasing it. Correct tiered billing should charge team-rate for units up to 5000 and business-rate only for units beyond 5000, accumulating across bands. The existing tests only exercise usage within the free and team tiers (e.g. 600 units), so this boundary-crossing regression is never exercised.",
+        "cost_usd": 0.047112,
+        "latency_ms": 43127,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_11",
+        "category": "none_check",
+        "function": "retry_allowed",
+        "description": "empty error string treated like no error",
+        "find": "if last_error is None:",
+        "replace": "if not last_error:"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 6,
+        "killed": 5,
+        "survived": 1,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.8333333333333334,
+        "line_coverage": 1.0,
+        "duration_ms": 3126,
+        "survivors_in_function": [
+          "billing.py::retry_allowed:3 < -> <="
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "calculate_invoice",
+        "explanation": "calculate_invoice computes billable units as `units - TIERS[0].max_units` (i.e. total usage minus only the free-tier threshold) and then multiplies by the *current* tier's flat unit_price. This ignores the fact that usage should be billed progressively across tiers (team rate for the portion up to 5000, business rate only for units beyond that). Because the business tier's unit_price (0.25) is lower than the team tier's (0.40), a customer who crosses from the team tier into the business tier actually pays *less* for a similar or larger usage amount than a customer who stays just under the team tier's cap (e.g. 5000 units => 0.40*4900=1960.00 vs 5001 units => 0.25*4901=1225.25). This non-monotonic billing is a logic bug, but no test exercises calculate_invoice for the business tier or the team/business boundary, so it slips through with 100% line coverage.",
+        "cost_usd": 0.03526,
+        "latency_ms": 28483,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_12",
+        "category": "none_check",
+        "function": "normalize_email",
+        "description": "None guard removed",
+        "find": "    if value is None:\n        return None\n    cleaned = value.strip().lower()",
+        "replace": "    cleaned = value.strip().lower()"
+      },
+      "baseline_detected": true,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": true,
+        "any_survivor_in_function": false,
+        "total": 4,
+        "killed": 4,
+        "survived": 0,
+        "timeout": 0,
+        "error": 0,
+        "score": 1.0,
+        "line_coverage": 1.0,
+        "duration_ms": 2080,
+        "survivors_in_function": []
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "normalize_email",
+        "explanation": "normalize_email is annotated to accept `value: str | None` and the test suite calls `normalize_email(None)` expecting `None` back, but the implementation immediately does `value.strip().lower()` without any None-check. Calling `.strip()` on `None` raises `AttributeError`, so the function does not actually handle the None case it advertises via its type hint and that the test exercises. Any missing/empty input represented as `None` will crash the billing pipeline instead of gracefully returning `None`.",
+        "cost_usd": 0.06415,
+        "latency_ms": 59099,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_13",
+        "category": "early_return_inversion",
+        "function": "apply_tax",
+        "description": "tax exemption inverted",
+        "find": "    if exempt:\n        return amount\n    return round_cents(amount * (Decimal(1) + TAX_RATE))",
+        "replace": "    if not exempt:\n        return amount\n    return round_cents(amount * (Decimal(1) + TAX_RATE))"
+      },
+      "baseline_detected": true,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": true,
+        "any_survivor_in_function": false,
+        "total": 5,
+        "killed": 5,
+        "survived": 0,
+        "timeout": 0,
+        "error": 0,
+        "score": 1.0,
+        "line_coverage": 1.0,
+        "duration_ms": 2487,
+        "survivors_in_function": []
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "apply_tax",
+        "explanation": "The exempt/no-tax logic is inverted. The function should add the tax rate when the customer is NOT tax-exempt (exempt=False) and simply return the amount unchanged when they ARE exempt (exempt=True). Instead, the code does `if not exempt: return amount` (skips tax for the normal, non-exempt case) and only applies the 10% tax multiplier when `exempt` is True. This means tax is charged to tax-exempt customers and never charged to normal, taxable customers, which is exactly backwards from the intended billing behavior used throughout calculate_invoice (e.g., the 600-unit team-tier invoice should total 198.00 after 10% tax on a 180.00 discounted subtotal, but with the current logic no tax would be applied for a non-exempt customer).",
+        "cost_usd": 0.125544,
+        "latency_ms": 116852,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_14",
+        "category": "early_return_inversion",
+        "function": "is_in_trial_window",
+        "description": "signup-in-future guard returns True",
+        "find": "    if today < signup:\n        return False\n    return today - signup",
+        "replace": "    if today < signup:\n        return True\n    return today - signup"
+      },
+      "baseline_detected": true,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": true,
+        "any_survivor_in_function": true,
+        "total": 5,
+        "killed": 3,
+        "survived": 2,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.6,
+        "line_coverage": 1.0,
+        "duration_ms": 2031,
+        "survivors_in_function": [
+          "billing.py::is_in_trial_window:2 < -> <=",
+          "billing.py::is_in_trial_window:3 < -> <="
+        ]
+      },
+      "ablation": {
+        "has_bug": false,
+        "location": "",
+        "explanation": "error: model returned no content (finish_reason=length)",
+        "cost_usd": 0.0,
+        "latency_ms": 0,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_15",
+        "category": "date_window",
+        "function": "is_in_trial_window",
+        "description": "trial window includes day 14",
+        "find": "return today - signup < timedelta(days=TRIAL_DAYS)",
+        "replace": "return today - signup <= timedelta(days=TRIAL_DAYS)"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 5,
+        "killed": 3,
+        "survived": 2,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.6,
+        "line_coverage": 1.0,
+        "duration_ms": 1392,
+        "survivors_in_function": [
+          "billing.py::is_in_trial_window:2 < -> <=",
+          "billing.py::is_in_trial_window:3 <= -> <"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "calculate_invoice",
+        "explanation": "calculate_invoice always charges billable units (units - 100) at the *single* unit_price of the tier the total usage falls into, rather than accumulating charges progressively across tiers (free 0-100, team 101-5000, business >5000). This makes the invoice non-monotonic: e.g. at units=5000 (team tier) billable=4900 * 0.40 = 1960.00, but at units=5001 (business tier) billable=4901 * 0.25 = 1225.25 \u2014 one additional unit of usage causes the total bill to drop sharply. This is a real logic bug in tier billing that the existing tests never exercise, since they only test usage well inside the free tier and well inside the team tier, never a tier-crossing boundary such as team->business.",
+        "cost_usd": 0.067204,
+        "latency_ms": 64371,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_16",
+        "category": "date_window",
+        "function": "is_overdue",
+        "description": "overdue on the last grace day",
+        "find": "return today > due + timedelta(days=grace_days)",
+        "replace": "return today >= due + timedelta(days=grace_days)"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 2,
+        "killed": 1,
+        "survived": 1,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.5,
+        "line_coverage": 1.0,
+        "duration_ms": 1120,
+        "survivors_in_function": [
+          "billing.py::is_overdue:1 >= -> >"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "calculate_invoice",
+        "explanation": "calculate_invoice computes billable units as simply (units - free tier cap) and then prices *all* of those units at the single unit_price of the tier the total usage falls into (tier.unit_price * billable). Given the TIERS list defines max_units per bracket (free up to 100, team up to 5000, business unlimited), the clear intent is progressive/tiered pricing: usage in the 101-5000 range should be billed at the team rate and usage above 5000 at the business rate, regardless of total usage. Instead, once usage crosses into the business tier, the code retroactively re-prices *all* billable units (including the 101-5000 portion that should have stayed at the team rate) at the cheaper business rate, producing a drastically different total than a correct progressive calculation (e.g. for units=6000, correct progressive billing gives 4900*0.40 + 1000*0.25 = 2210.00, but the current code gives 5900*0.25 = 1475.00). The only invoice test that exercises a paid tier (test_calculate_invoice_team_with_coupon) uses units=600, which stays entirely within the team bracket, so it can't distinguish flat-rate billing from correct progressive billing. No test exercises usage that crosses from team into business, so this incorrect flat-rate behavior is not caught despite 100% line coverage.",
+        "cost_usd": 0.107814,
+        "latency_ms": 103164,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_17",
+        "category": "wrong_default",
+        "function": "is_overdue",
+        "description": "default grace period silently extended",
+        "find": "grace_days: int = GRACE_DAYS",
+        "replace": "grace_days: int = GRACE_DAYS + 4"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 3,
+        "killed": 1,
+        "survived": 2,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.3333333333333333,
+        "line_coverage": 1.0,
+        "duration_ms": 1119,
+        "survivors_in_function": [
+          "billing.py::is_overdue:1 > -> >=",
+          "billing.py::is_overdue:2 4 -> 5"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "is_overdue",
+        "explanation": "The function's default grace period is GRACE_DAYS + 4 (i.e. 7 days) instead of just GRACE_DAYS (3 days) as the module-level constant implies. This silently extends the grace period by 4 extra days beyond what GRACE_DAYS is supposed to represent. The existing tests (test_overdue with a 19-day gap and test_not_overdue with a 1-day gap) are far outside the boundary region, so they pass regardless of whether grace_days is 3 or 7, hiding the bug. A boundary test (e.g., today = due + GRACE_DAYS + 1) would reveal that the function does not become overdue when it should.",
+        "cost_usd": 0.028158,
+        "latency_ms": 26472,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_18",
+        "category": "wrong_default",
+        "function": "retry_allowed",
+        "description": "retry limit constant raised",
+        "find": "MAX_RETRIES = 3",
+        "replace": "MAX_RETRIES = 5"
+      },
+      "baseline_detected": false,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": false,
+        "any_survivor_in_function": true,
+        "total": 6,
+        "killed": 5,
+        "survived": 1,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.8333333333333334,
+        "line_coverage": 1.0,
+        "duration_ms": 1476,
+        "survivors_in_function": [
+          "billing.py::retry_allowed:3 < -> <="
+        ]
+      },
+      "ablation": {
+        "has_bug": false,
+        "location": "",
+        "explanation": "After tracing through every function (tier_for_usage, calculate_invoice, apply_discount, apply_tax, prorate, is_in_trial_window, is_overdue, retry_allowed, parse_coupon, normalize_email, can_upgrade, charge, refund, billing_anchor) against the test suite and additional boundary cases not directly tested, all implementations are internally consistent with their intended semantics. Boundary conditions (e.g., tier cutoffs at 100/5000 units, trial window strict inequality, overdue grace-day addition, billing_anchor month/year rollover including the January-to-December wraparound) all compute correct results when manually traced with values beyond those in the tests. The tiered pricing model in calculate_invoice applies a flat per-unit rate based on the final tier rather than marginal tier pricing, but this is a consistent design choice reflected by the Tier dataclass structure, not an implementation defect. No location exhibits an incorrect operator, off-by-one, or reversed condition inconsistent with the rest of the module's stated behavior.",
+        "cost_usd": 0.101272,
+        "latency_ms": 95387,
+        "detected": false
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_19",
+        "category": "exception_swallow",
+        "function": "charge",
+        "description": "gateway decline swallowed and reported as success",
+        "find": "    except GatewayError:\n        raise\n",
+        "replace": "    except GatewayError:\n        ref = None\n"
+      },
+      "baseline_detected": true,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": true,
+        "any_survivor_in_function": false,
+        "total": 3,
+        "killed": 3,
+        "survived": 0,
+        "timeout": 0,
+        "error": 0,
+        "score": 1.0,
+        "line_coverage": 1.0,
+        "duration_ms": 1873,
+        "survivors_in_function": []
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "charge",
+        "explanation": "charge() catches GatewayError from gateway.charge() and silently sets ref=None, but still returns {\"ok\": True, ...}. A declined/failed charge is thus reported as a successful transaction (with a None reference) instead of propagating the failure or returning ok=False like refund() does for the analogous failure case. This is inconsistent with refund()'s error handling and represents a real billing correctness bug (money not actually charged but treated as charged).",
+        "cost_usd": 0.053586,
+        "latency_ms": 46995,
+        "detected": true
+      }
+    },
+    {
+      "bug": {
+        "id": "bug_20",
+        "category": "exception_swallow",
+        "function": "refund",
+        "description": "gateway decline swallowed and reported as success",
+        "find": "    except GatewayError as exc:\n        return {\"ok\": False, \"error\": str(exc)}\n",
+        "replace": "    except GatewayError:\n        pass\n"
+      },
+      "baseline_detected": true,
+      "killscore": {
+        "detected": true,
+        "caught_by_suite": true,
+        "any_survivor_in_function": true,
+        "total": 7,
+        "killed": 6,
+        "survived": 1,
+        "timeout": 0,
+        "error": 0,
+        "score": 0.8571428571428571,
+        "line_coverage": 1.0,
+        "duration_ms": 2268,
+        "survivors_in_function": [
+          "billing.py::refund:3 0 -> 1"
+        ]
+      },
+      "ablation": {
+        "has_bug": true,
+        "location": "refund",
+        "explanation": "The refund() function catches GatewayError from gateway.refund() and swallows it with `pass`, but the final `return {\"ok\": True, ...}` is outside the try/except and unconditional. This means refund() reports success (ok=True) even when the gateway call actually failed with a GatewayError, which is the opposite of the intended behavior (the failure case should report ok=False). This is a genuine logic defect: the success flag never reflects whether the underlying refund actually succeeded.",
+        "cost_usd": 0.041886,
+        "latency_ms": 37722,
+        "detected": true
+      }
+    }
+  ]
+}
