@@ -1,0 +1,120 @@
+- id: bug_01
+  category: tier_boundary
+  function: tier_for_usage
+  description: free tier boundary excludes exactly 100 units
+  find: "if units <= TIERS[0].max_units:"
+  replace: "if units < TIERS[0].max_units:"
+- id: bug_02
+  category: tier_boundary
+  function: tier_for_usage
+  description: team tier boundary excludes exactly 5000 units
+  find: "if units <= TIERS[1].max_units:"
+  replace: "if units < TIERS[1].max_units:"
+- id: bug_03
+  category: tier_boundary
+  function: tier_for_usage
+  description: negative guard accepts -1
+  find: "if units < 0:"
+  replace: "if units < -1:"
+- id: bug_04
+  category: ge_to_gt
+  function: prorate
+  description: full period no longer returns full amount at exactly days_in_period
+  find: "if days_used >= days_in_period:"
+  replace: "if days_used > days_in_period:"
+- id: bug_05
+  category: ge_to_gt
+  function: can_upgrade
+  description: zero balance blocks upgrade
+  find: "and balance_due <= 0"
+  replace: "and balance_due < 0"
+- id: bug_06
+  category: ge_to_gt
+  function: retry_allowed
+  description: allows one retry beyond MAX_RETRIES
+  find: "return attempts < MAX_RETRIES"
+  replace: "return attempts <= MAX_RETRIES"
+- id: bug_07
+  category: rounding
+  function: round_cents
+  description: half-up rounding replaced by truncation
+  find: "rounding=ROUND_HALF_UP)"
+  replace: "rounding=\"ROUND_DOWN\")"
+- id: bug_08
+  category: rounding
+  function: prorate
+  description: proration rounds up instead of half-up
+  find: "return round_cents(amount * Decimal(days_used) / Decimal(days_in_period))"
+  replace: "return (amount * Decimal(days_used) / Decimal(days_in_period)).quantize(Decimal(\"0.01\"), rounding=\"ROUND_CEILING\")"
+- id: bug_09
+  category: and_or
+  function: normalize_email
+  description: leading-or-trailing @ check became leading-and-trailing
+  find: "cleaned.startswith(\"@\") or cleaned.endswith(\"@\")"
+  replace: "cleaned.startswith(\"@\") and cleaned.endswith(\"@\")"
+- id: bug_10
+  category: and_or
+  function: parse_coupon
+  description: malformed coupon guard requires both failures
+  find: "if not sep or not pct.isdigit():"
+  replace: "if not sep and not pct.isdigit():"
+- id: bug_11
+  category: none_check
+  function: retry_allowed
+  description: empty error string treated like no error
+  find: "if last_error is None:"
+  replace: "if not last_error:"
+- id: bug_12
+  category: none_check
+  function: normalize_email
+  description: None guard removed
+  find: "    if value is None:\n        return None\n    cleaned = value.strip().lower()"
+  replace: "    cleaned = value.strip().lower()"
+- id: bug_13
+  category: early_return_inversion
+  function: apply_tax
+  description: tax exemption inverted
+  find: "    if exempt:\n        return amount\n    return round_cents(amount * (Decimal(1) + TAX_RATE))"
+  replace: "    if not exempt:\n        return amount\n    return round_cents(amount * (Decimal(1) + TAX_RATE))"
+- id: bug_14
+  category: early_return_inversion
+  function: is_in_trial_window
+  description: signup-in-future guard returns True
+  find: "    if today < signup:\n        return False\n    return today - signup"
+  replace: "    if today < signup:\n        return True\n    return today - signup"
+- id: bug_15
+  category: date_window
+  function: is_in_trial_window
+  description: trial window includes day 14
+  find: "return today - signup < timedelta(days=TRIAL_DAYS)"
+  replace: "return today - signup <= timedelta(days=TRIAL_DAYS)"
+- id: bug_16
+  category: date_window
+  function: is_overdue
+  description: overdue on the last grace day
+  find: "return today > due + timedelta(days=grace_days)"
+  replace: "return today >= due + timedelta(days=grace_days)"
+- id: bug_17
+  category: wrong_default
+  function: is_overdue
+  description: default grace period silently extended
+  find: "grace_days: int = GRACE_DAYS"
+  replace: "grace_days: int = GRACE_DAYS + 4"
+- id: bug_18
+  category: wrong_default
+  function: retry_allowed
+  description: retry limit constant raised
+  find: "MAX_RETRIES = 3"
+  replace: "MAX_RETRIES = 5"
+- id: bug_19
+  category: exception_swallow
+  function: charge
+  description: gateway decline swallowed and reported as success
+  find: "    except GatewayError:\n        raise\n"
+  replace: "    except GatewayError:\n        ref = None\n"
+- id: bug_20
+  category: exception_swallow
+  function: refund
+  description: gateway decline swallowed and reported as success
+  find: "    except GatewayError as exc:\n        return {\"ok\": False, \"error\": str(exc)}\n"
+  replace: "    except GatewayError:\n        pass\n"
