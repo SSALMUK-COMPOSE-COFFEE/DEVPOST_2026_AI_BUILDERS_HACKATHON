@@ -15,10 +15,10 @@ export default async function Home() {
     hero = runs.find((r) => r.repo === "billing-api" && r.status === "done") ?? null;
   } catch {}
   const coverage = hero?.line_coverage != null ? pct(hero.line_coverage) : "100%";
-  const score = hero?.mutation_score != null ? pct(hero.mutation_score) : "31%";
-  const tests = hero?.baseline_passed ?? 47;
-  const survived = hero?.survived ?? 7;
-  const total = hero?.total ?? 10;
+  const score = hero?.mutation_score != null ? pct(hero.mutation_score) : "63%";
+  const tests = hero?.baseline_passed ?? 40;
+  const survived = hero?.survived ?? 14;
+  const total = hero?.total ?? 39;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">

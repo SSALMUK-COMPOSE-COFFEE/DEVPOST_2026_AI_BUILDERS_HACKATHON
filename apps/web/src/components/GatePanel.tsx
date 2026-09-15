@@ -28,8 +28,9 @@ export function GatePanel({ presets }: { presets: RepoPreset[] }) {
 
   useEffect(() => {
     if (!slug) return;
-    setError(null);
-    api<Check>(`/v1/gate/${slug}/check?min_score=${minScore}`).then(setCheck).catch((e) => { setCheck(null); setError(String(e)); });
+    api<Check>(`/v1/gate/${slug}/check?min_score=${minScore}`)
+      .then((c) => { setCheck(c); setError(null); })
+      .catch(() => { setCheck(null); setError("API unreachable or no completed run for this repository yet."); });
   }, [slug, minScore]);
 
   async function save() {
